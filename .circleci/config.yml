@@ -1,0 +1,59 @@
+# Required environment variables (set these in CircleCI):
+# DOCKER_LOGIN - Dockerhub service account username
+# DOCKER_PASSWORD - Dockerhub service account password
+
+version: 2.1
+
+jobs:
+  build-and-test:
+    machine:
+      docker_layer_caching: true
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - run:
+          name: Setup shell environment
+          command: |
+            ./scripts/setup_env.sh
+            echo ' [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
+      - run:
+          name: Setup node
+          command: |
+              nvm install v14.15.1
+              node -v
+              nvm alias default v14.15.1
+      - run:
+          name: Get ACAPy
+          command: docker pull bcgovimages/aries-cloudagent:py36-1.15-1_0.6.0
+      - run:
+          name: Start docker compose and wait for readiness
+          command: |
+            docker-compose -f docker-compose.yml build
+            docker-compose -f docker-compose.yml up -d
+            sleep 20
+            docker-compose -f docker-compose.yml logs
+      - run:
+          name: Setup integration tests
+          command: |
+            npm install
+            ./scripts/setup_fixtures.sh
+      - run:
+          name: Running integration tests (only health tests for now)
+          command: |
+            if ! npm run test ; then
+              echo "Tests failed. Server logs:";
+              docker-compose -f docker-compose.yml logs;
+              exit 1;
+            fi
+
+workflows:
+  build-test-deploy:
+    jobs:
+      - build-and-test:
+          filters: # run for all branches AND tags
+              tags:
+                  only: /.*/
+
+orbs:
+  node: circleci/node@1.1.6
+  docker: circleci/docker@1.3.0

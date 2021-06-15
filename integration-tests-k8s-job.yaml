@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: integration-tests
+spec:
+  template:
+    spec:
+      containers:
+      - name: integration-tests
+        image: kiva/kiva-protocol:integration-tests
+        envFrom:
+        - secretRef:
+            name: integration-tests
+      restartPolicy: Never
+      imagePullSecrets:
+      - name: regcred
+  backoffLimit: 4
