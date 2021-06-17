@@ -37,7 +37,7 @@ services:
   protocol-gateway:
     image: "${PROTOCOL_GATEWAY_IMAGE}"
     env_file:
-      - services/gateway/.env
+      - services/gateway/test.env
     container_name: protocol-gateway
     working_dir: /www
     ports:
@@ -56,7 +56,7 @@ services:
     container_name: protocol-auth-db
     command: postgres -c logging_collector=on -c log_destination=stderr
     env_file:
-      - services/auth_db/.env
+      - services/auth_db/test.env
     networks:
       - agency-network
     depends_on:
@@ -69,7 +69,7 @@ services:
     command: postgres -c logging_collector=on -c log_destination=stderr
     shm_size: '2gb'
     env_file:
-      - services/identity_db/.env
+      - services/identity_db/test.env
     networks:
       - agency-network
     depends_on:
@@ -82,7 +82,7 @@ services:
     container_name: protocol-identity-template-db
     restart: always
     env_file:
-      - services/identity_template_db/.env
+      - services/identity_template_db/test.env
     networks:
       - agency-network
     depends_on:
@@ -96,7 +96,7 @@ services:
     volumes:
       - ./services/identity_wallet_db/create_scripts:/docker-entrypoint-initdb.d/
     env_file:
-      - services/identity_wallet_db/.env
+      - services/identity_wallet_db/test.env
     networks:
       - agency-network
     depends_on:
@@ -109,7 +109,7 @@ services:
     ports:
       - "8081:8080"
     env_file:
-      - services/bio_auth_service/.env
+      - services/bio_auth_service/test.env
     networks:
       - agency-network
     depends_on:
@@ -121,7 +121,7 @@ services:
     container_name: protocol-bioanalyzer-service
     working_dir: /app
     env_file:
-        - services/bioanalyzer_service/.env
+        - services/bioanalyzer_service/test.env
     ports:
         - "8089:8080"
     networks:
@@ -135,7 +135,7 @@ services:
     container_name: aries-guardianship-agency
     working_dir: /www
     env_file:
-      - services/aries_guardianship_agency/.env
+      - services/aries_guardianship_agency/test.env
     ports:
       - "3010:3010"
     expose:
@@ -154,7 +154,7 @@ services:
     container_name: aries-key-guardian
     working_dir: /www
     env_file:
-      - services/aries-key-guardian/.env
+      - services/aries-key-guardian/test.env
     ports:
       - "3005:3003"
     expose:
@@ -170,7 +170,7 @@ services:
     container_name: kiva-controller
     working_dir: /www
     env_file:
-      - services/kiva_controller/.env
+      - services/kiva_controller/test.env
     ports:
       - "3011:3011"
     expose:
@@ -186,7 +186,7 @@ services:
     container_name: fsp-controller
     working_dir: /www
     env_file:
-      - services/fsp_controller/.env
+      - services/fsp_controller/test.env
     ports:
       - "3013:3013"
     expose:
@@ -202,7 +202,7 @@ services:
     container_name: demo-controller
     working_dir: /www
     env_file:
-      - services/demo_controller/.env
+      - services/demo_controller/test.env
     ports:
       - "3014:3014"
     expose:
@@ -253,7 +253,7 @@ services:
       - "3020"
       - "3021"
     env_file:
-      - services/multitenant/.env
+      - services/multitenant/test.env
     # Have multitenant wait a few seconds until indy ledger is up
     # Also for some reason inbound transport doesn't work via env args so using commmand line here
     entrypoint: /bin/bash
