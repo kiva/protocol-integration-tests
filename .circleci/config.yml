@@ -32,6 +32,10 @@ jobs:
             sleep 20
             docker-compose -f docker-compose.yml logs
       - run:
+          name: Healthcheck services
+          command: |
+              ./scripts/healthstack.sh
+      - run:
           name: Setup integration tests
           command: |
             npm install
