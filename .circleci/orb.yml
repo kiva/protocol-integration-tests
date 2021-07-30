@@ -1,0 +1,11 @@
+version: 2.1
+description: A greeting command orb
+commands:
+  greet:
+    description: Greet someone with a "hello".
+    parameters:
+      to:
+        type: string
+        default: World
+    steps:
+      - run: echo "Hello, << parameters.to >>"
