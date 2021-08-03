@@ -10,6 +10,7 @@ jobs:
       image: ubuntu-1604:201903-01
     steps:
       - checkout
+      - circleci/install
       - run:
           name: Validate orb.yaml
           command: circleci orb validate .circleci/orb.yml
@@ -75,3 +76,4 @@ workflows:
 orbs:
   node: circleci/node@1.1.6
   docker: circleci/docker@1.3.0
+  circleci: circleci/circleci-cli@0.1.9
