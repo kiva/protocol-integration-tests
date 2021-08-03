@@ -11,6 +11,8 @@ jobs:
      machine:
        image: ubuntu-1604:201903-01
      steps:
+       - checkout
+       - circleci/install
        - run:
            name: Publish dev orb
            command: circleci orb publish .circleci/orb.yml kiva/protocol-integration-tests@dev:${CIRCLE_SHA1}
