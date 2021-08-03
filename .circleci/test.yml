@@ -3,8 +3,29 @@
 
 version: 2.1
 
+orbs:
+  circleci: circleci/circleci-cli@0.1.9
+
+jobs:
+  publish-dev-orb:
+     machine:
+       image: ubuntu-1604:201903-01
+     steps:
+       - run:
+           name: Publish dev orb
+           command: circleci orb publish .circleci/orb.yml kiva/protocol-integration-tests@dev:${CIRCLE_SHA1}
+
 workflows:
-  run-integration-tests:
+  test-and-deploy:
     jobs:
-      - integration-tests/run:
+      - integration-tests/run-integration-tests:
           with_override: false
+          filters: # run for all branches AND tags
+            tags:
+              only: /.*/
+      - publish-dev-orb:
+          requires:
+            - integration-tests/run-integration-tests
+          filters: # run for all branches AND tags
+            tags:
+              only: /.*/

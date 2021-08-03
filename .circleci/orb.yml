@@ -7,7 +7,7 @@ display:
   home_url: https://kiva.global/protocol/
 
 jobs:
-  run:
+  run-integration-tests:
     description: Run the standard Kiva Protocol integration tests for a given repository and service(s)
     machine:
       image: ubuntu-1604:201903-01
