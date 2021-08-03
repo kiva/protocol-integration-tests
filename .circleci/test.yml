@@ -1,0 +1,10 @@
+# Expects the contents of orb.yml to be added as an inline orb here.
+# scripts/generate_config.sh is responsible for doing this
+
+version: 2.1
+
+workflows:
+  run-integration-tests:
+    jobs:
+      - integration-tests/run:
+          with_override: false
