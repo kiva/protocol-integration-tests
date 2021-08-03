@@ -86,4 +86,4 @@ orbs:
   node: circleci/node@1.1.6
   docker: circleci/docker@1.3.0
   circleci: circleci/circleci-cli@0.1.9
-  integration-tests: kiva/protocol-integration-tests@dev:${CIRCLE_SHA1}
+  integration-tests: kiva/protocol-integration-tests@dev:0.0.1
