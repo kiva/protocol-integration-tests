@@ -69,7 +69,7 @@ jobs:
 workflows:
   build-test-deploy:
     jobs:
-      - validate-orb-yaml:
+      - validate-and-publish-dev-orb:
           filters: # run for all branches AND tags
             tags:
               only: /.*/
