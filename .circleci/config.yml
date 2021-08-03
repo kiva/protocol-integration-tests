@@ -28,7 +28,7 @@ jobs:
           name: Generate config
           command: ./scripts/generate_config.sh > generated_config.yml
       - continuation/continue:
-          configuration_path: generated_config.yml
+          configuration_path: ./.circleci/generated_config.yml
 
 workflows:
   setup:
