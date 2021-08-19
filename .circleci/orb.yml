@@ -1,0 +1,87 @@
+version: 2.1
+
+description: An orb that allows you to run the standard integration tests for Kiva Protocol
+
+display:
+  source_url: https://github.com/kiva/protocol-integration-tests
+  home_url: https://kiva.global/protocol/
+
+jobs:
+  run-integration-tests:
+    description: Run the standard Kiva Protocol integration tests for a given repository and service(s)
+    machine:
+      image: ubuntu-1604:201903-01
+    parameters:
+      with_override:
+        description: Run integration tests with an override for the given repository/service(s)
+        type: boolean
+        default: true
+      repository_name:
+        description: The name of the repository to override when running integration tests
+        type: string
+        default: ''
+      service_names:
+        description: The comma-separated name(s) of the service(s) to override when running integration tests
+        type: string
+        default: ''
+      docker_compose_filename:
+        description: The name of the docker-compose file to use in the override repository in order to build images
+        type: string
+        default: docker-compose.ci.yml
+      env_var_setup_script:
+        description: The namd and location of the script to set up environment variables for the override repository
+        type: string
+        default: scripts/setup_env.sh
+    steps:
+      - run:
+          name: Pull protocol-integration-tests
+          command: git clone https://github.com/kiva/protocol-integration-tests ./
+      - run:
+          name: Setup integration test environment
+          command: |
+            ./scripts/setup_env.sh
+            echo $AUTH0_ENV | base64 --decode >> .env
+            echo ' [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
+      - run:
+          name: Node npm setup
+          command: |
+            nvm install v14.15.1
+            node -v
+            nvm alias default v14.15.1
+      - run:
+          name: Get ACAPy
+          command: docker pull bcgovimages/aries-cloudagent:py36-1.16-1_0.7.0
+      - when:
+          condition: << parameters.with_override >>
+          steps:
+            - run:
+                name: Override for repository and service(s) under test
+                command: ./scripts/setup_override.sh -r << parameters.repository_name >> -s << parameters.service_names >> -f << parameters.docker_compose_filename >> -e << parameters.env_var_setup_script >>
+      - run:
+          name: Start integration test docker compose and wait for readiness
+          command: |
+            docker system prune -f
+            docker-compose -f docker-compose.yml build --no-cache
+            docker-compose -f docker-compose.yml up -d
+            sleep 20
+            docker-compose -f docker-compose.yml logs
+      - run:
+          name: Healthcheck services
+          command: ./scripts/healthstack.sh
+      - run:
+          name: Setup integration tests
+          command: |
+            npm install
+            ./scripts/setup_fixtures.sh
+      - run:
+          name: Run integration tests
+          command: |
+            if ! npm run test ; then
+              echo "Tests failed. Server logs:";
+              docker-compose -f docker-compose.yml logs;
+              exit 1;
+            fi
+
+orbs:
+  node: circleci/node@4.1.0
+  docker: circleci/docker@1.3.0
