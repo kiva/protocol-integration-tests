@@ -146,6 +146,7 @@ services:
       - agency-network
     depends_on:
       - protocol-indy-pool
+      - multitenant
     tty: true
     privileged: true
 
