@@ -69,6 +69,7 @@ describe('Full system issue and verify flows for employee credentials', () => {
         return request(process.env.API_GATEWAY_URL)
             .post('/v2/demo/agent/accept-connection')
             .set('Authorization', auth0Token)
+            .set('agent', 'demo-agent')
             .send(data)
             .expect((res) => {
                 expect(res.status).toBe(201);
