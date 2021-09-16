@@ -24,7 +24,7 @@ jobs:
               nvm alias default v14.15.1
       - run:
           name: Get ACAPy
-          command: docker pull bcgovimages/aries-cloudagent:py36-1.16-1_0.7.0
+          command: docker pull bcgovimages/aries-cloudagent:py36-1.16-1_0.7.1
       - run:
           name: Start docker compose and wait for readiness
           command: |
@@ -40,7 +40,7 @@ jobs:
           name: Setup integration tests
           command: |
             npm install
-            sleep 10
+            sleep 5
             ./scripts/setup_fixtures.sh
       - run:
           name: Running integration tests (only health tests for now)
