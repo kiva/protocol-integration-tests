@@ -58,6 +58,7 @@ describe('Full system eKYC integration tests for demo issue and verify flows', (
         return request(process.env.API_GATEWAY_URL)
             .post('/v2/demo/api/connection')
             .set(AUTH0_HEADER, auth0Token)
+            .set('agent', 'demo-agent')
             .expect(201)
             .expect((res) => {
                 expect(res.body.invitation).toBeDefined();
@@ -88,6 +89,7 @@ describe('Full system eKYC integration tests for demo issue and verify flows', (
         return request(process.env.API_GATEWAY_URL)
             .get(`/v2/demo/api/connection/${demoConnectionId}`)
             .set(AUTH0_HEADER, auth0Token)
+            .set('agent', 'demo-agent')
             .expect(200)
             .expect((res) => {
                 expect(res.body.state).toBe('response');
@@ -110,6 +112,7 @@ describe('Full system eKYC integration tests for demo issue and verify flows', (
         return request(process.env.API_GATEWAY_URL)
             .post('/v2/demo/api/issue')
             .set(AUTH0_HEADER, auth0Token)
+            .set('agent', 'demo-agent')
             .send(issueData)
             .expect((res) => {
                 try {
@@ -133,6 +136,7 @@ describe('Full system eKYC integration tests for demo issue and verify flows', (
         return request(process.env.API_GATEWAY_URL)
             .post(`/v2/demo/api/verify`)
             .set(AUTH0_HEADER, auth0Token)
+            .set('agent', 'demo-agent')
             .send(data)
             .expect((res) => {
                 try {
@@ -152,6 +156,7 @@ describe('Full system eKYC integration tests for demo issue and verify flows', (
         return request(process.env.API_GATEWAY_URL)
             .get(`/v2/demo/api/verify/${presExId}`)
             .set(AUTH0_HEADER, auth0Token)
+            .set('agent', 'demo-agent')
             .expect(200)
             .expect((res) => {
                 expect(res.body.state).toBe('verified');
@@ -165,6 +170,7 @@ describe('Full system eKYC integration tests for demo issue and verify flows', (
         return request(process.env.API_GATEWAY_URL)
             .get(`/v2/demo/api/connection/${demoConnectionId}`)
             .set(AUTH0_HEADER, auth0Token)
+            .set('agent', 'demo-agent')
             .expect(200)
             .expect((res) => {
                 expect(res.body.state).toBe('active');
@@ -176,6 +182,7 @@ describe('Full system eKYC integration tests for demo issue and verify flows', (
         return request(process.env.API_GATEWAY_URL)
             .delete(`/v2/demo/api/connection/${demoConnectionId}`)
             .set(AUTH0_HEADER, auth0Token)
+            .set('agent', 'demo-agent')
             .expect(200);
     });
 });

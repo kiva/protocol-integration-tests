@@ -5,5 +5,5 @@ set -ev
 
 sleep 1
 docker exec -it kiva-controller node /www/scripts/setup.sl.kiva.js
-docker exec -it demo-controller node /www/scripts/setup.demo.js
 docker exec -it kiva-controller node /www/scripts/setup.employee.kiva.js
+./scripts/setup_demo_controller.sh
