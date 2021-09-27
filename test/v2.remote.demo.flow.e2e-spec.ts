@@ -15,8 +15,6 @@ describe('Full system eKYC integration tests for demo issue and verify flows', (
     let invitation: any;
     let demoConnectionId: string;
     let credentialExchangeId: string;
-    let newestDemoConnectionId: string;
-    let credentialId: string;
     let auth0Token: string;
     let presExId: string;
 

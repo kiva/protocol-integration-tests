@@ -13,7 +13,6 @@ describe('Full system issue and verify flows for employee credentials', () => {
     let credentialExchangeId: string;
     let presExId: string;
     let auth0Token: string;
-    let credentialId: string;
 
     const delayFunc = (ms: number) => {
         return new Promise(resolve => setTimeout(resolve, ms));
