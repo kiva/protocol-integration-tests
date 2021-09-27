@@ -9,8 +9,8 @@
     "url": "git+https://github.com/kiva/protocol.git"
   },
   "scripts": {
-    "lint": "tslint -p tsconfig-lint.json -c tslint.json",
-    "lint:fix": "tslint -p tsconfig-lint.json -c tslint.json --fix",
+    "lint": "tslint -p tsconfig.json -c tslint.json",
+    "lint:fix": "tslint -p tsconfig.json -c tslint.json --fix",
     "test": "node -r dotenv/config node_modules/.bin/jest --runInBand",
     "test:concurrency": "node -r dotenv/config node_modules/.bin/jest --testRegex concurrency",
     "test:identity": "node -r dotenv/config node_modules/.bin/jest --testRegex identity",
