@@ -1,5 +1,8 @@
 import request from 'supertest';
 import { inspect } from 'util';
+import { delayFunc } from './util/time.util';
+
+jest.setTimeout(60000);
 
 /**
  * Test the issuing and verifying of employee credentials for guardianship
@@ -12,15 +15,10 @@ describe('Full system issue and verify flows for employee credentials', () => {
     let auth0Token: string;
     const phoneNumber = '+16282185460'; // Fake US number that passes twilio's checks
 
-    const delayFunc = (ms: number) => {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    };
-
     beforeAll(() => {
         // We use email as the employees unique identifier so needs to be unique
         const id = 1000000 + parseInt(Date.now().toString().substr(7, 6), 10); // Predictable and unique exact 7 digits that doesn't start with 0
         email = `company${id}@email.com`;
-        jest.setTimeout(60000);
     });
 
     it('Get Auth0 access token', () => {
