@@ -22,6 +22,7 @@
   "devDependencies": {
     "@types/jest": "^27.0.2",
     "@types/supertest": "^2.0.11",
+    "protocol-common": "^1.0.1",
     "dotenv": "^10.0.0",
     "kill-port": "^1.6.1",
     "jest": "^27.2.2",
