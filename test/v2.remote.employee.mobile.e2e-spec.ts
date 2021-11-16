@@ -1,5 +1,8 @@
 import request from 'supertest';
 import { inspect } from 'util';
+import { delayFunc } from './util/time.util';
+
+jest.setTimeout(60000);
 
 /**
  * Test the issuing and verifying of employee credentials for mobile
@@ -13,15 +16,6 @@ describe('Full system issue and verify flows for employee credentials', () => {
     let credentialExchangeId: string;
     let presExId: string;
     let auth0Token: string;
-    let credentialId: string;
-
-    const delayFunc = (ms: number) => {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    };
-
-    beforeAll(() => {
-        jest.setTimeout(60000);
-    });
 
     it('Get Auth0 access token', () => {
         const auth0Data = {

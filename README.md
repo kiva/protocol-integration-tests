@@ -54,10 +54,11 @@ You also need an Auth0 account of your own.
 
 ## How to Run the Tests
 
-Running the tests is super simple! Just bring up the docker-compose and then use npm to run the tests. Like this:
+Running the tests is super simple! Just bring up the docker-compose, set up your test fixtures, and run the tests. Like this:
 
 ```
 docker-compose up
+./scripts/setup_fixtures.sh
 npm run test
 ```
 

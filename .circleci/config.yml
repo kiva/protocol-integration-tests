@@ -35,7 +35,7 @@ jobs:
       - run:
           name: Healthcheck services
           command: |
-              ./scripts/healthstack.sh
+            ./scripts/healthstack.sh
       - run:
           name: Setup integration tests
           command: |

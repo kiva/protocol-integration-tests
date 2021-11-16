@@ -1,5 +1,8 @@
 import request from 'supertest';
 import { inspect } from 'util';
+import { delayFunc } from './util/time.util';
+
+jest.setTimeout(60000);
 
 /**
  * The demo test is a very specific test to make sure the pieces for the demo work. We may end up removing this is the future in favor of
@@ -15,20 +18,10 @@ describe('Full system eKYC integration tests for demo issue and verify flows', (
     let invitation: any;
     let demoConnectionId: string;
     let credentialExchangeId: string;
-    let newestDemoConnectionId: string;
-    let credentialId: string;
     let auth0Token: string;
     let presExId: string;
 
     const AUTH0_HEADER = 'Authorization';
-
-    const delayFunc = (ms: number) => {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    };
-
-    beforeAll(() => {
-        jest.setTimeout(60000);
-    });
 
     it('Get Auth0 access token', () => {
         const auth0Data = {
@@ -62,8 +55,9 @@ describe('Full system eKYC integration tests for demo issue and verify flows', (
             .expect(201)
             .expect((res) => {
                 expect(res.body.invitation).toBeDefined();
-                demoConnectionId = res.body.connection_id;
                 invitation = res.body.invitation;
+                expect(res.body.connection_id).toBeDefined();
+                demoConnectionId = res.body.connection_id;
             });
     });
 
