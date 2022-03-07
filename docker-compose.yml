@@ -222,13 +222,8 @@ services:
       - agency-network
     depends_on:
       - protocol-indy-pool
-    environment:
-      - MSYS_NO_PATHCONV=1
-      - DOCKERHOST=${APPLICATION_URL-$(docker run --rm --net=host eclipse/che-ip)}
-      - GENESIS_URL=${GENESIS_URL:-http://$DOCKERHOST:9000/genesis}
-      - STORAGE_PATH=${STORAGE_PATH:-/tmp/tails-files}
-      - LOG_LEVEL=${LOG_LEVEL:-INFO}
-      - TAILS_SERVER_URL=${TAILS_SERVER_URL:-http://$DOCKERHOST:6543}
+    env_file:
+      - services/tails-server/test.env
     command: >
       tails-server
           --host 0.0.0.0
