@@ -10,6 +10,14 @@
 | npm               | 6.14.8                                  |
 | NodeJS            | 14.15.1                                 |
 
+
+## Notes
+The protocol stack is a full stack implementation of Aries Protocol. In these
+installation documents, there will be mentions of Front End and Services.
+Front End refers to applications that serve or show the user interface (UI). And
+Services refers to APIs and endpoints that provide additional behaviors
+to the front end.
+
 ## Windows
 Please read the windows [installation instructions](./Windows.md).
 
