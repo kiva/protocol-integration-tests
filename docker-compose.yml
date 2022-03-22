@@ -258,3 +258,35 @@ services:
       aca-py start \
       --inbound-transport http '0.0.0.0' 3020"
     ]
+
+  ssirius:
+    build:
+      context: services/ssirius
+      dockerfile: ssirius.dockerfile
+    image: ssirius
+    container_name: ssirius
+    networks:
+      - agency-network
+    ports:
+      - "7567:7567"
+    expose:
+      - "7567"
+    depends_on:
+      - fp_api
+    profiles:
+      - frontend
+
+  fp_api:
+    build:
+      context: services/fingerprint-simulator
+      dockerfile: simulator.dockerfile
+    image: fpapi
+    container_name: fpapi
+    networks:
+      - agency-network
+    ports:
+      - "9907:9907"
+    expose:
+      - "9907"
+    profiles:
+      - frontend
