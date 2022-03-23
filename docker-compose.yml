@@ -272,16 +272,16 @@ services:
     expose:
       - "7567"
     depends_on:
-      - fp_api
+      - fingerprintApi
     profiles:
       - frontend
 
-  fp_api:
+  fingerprintApi:
     build:
       context: services/fingerprint-simulator
       dockerfile: simulator.dockerfile
-    image: fpapi
-    container_name: fpapi
+    image: fingerprintApi
+    container_name: fingerprintApi
     networks:
       - agency-network
     ports:

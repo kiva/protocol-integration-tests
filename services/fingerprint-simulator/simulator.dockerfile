@@ -5,5 +5,5 @@ WORKDIR /fpapi
 COPY . .
 RUN npm ci
 
-CMD ["npm", "run", "fpapi"]
+CMD ["npm", "run", "fingerprintApi"]
 EXPOSE 9907
