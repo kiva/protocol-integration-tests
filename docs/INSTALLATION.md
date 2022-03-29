@@ -18,6 +18,21 @@ Front End refers to applications that serve or show the user interface (UI). And
 Services refers to APIs and endpoints that provide additional behaviors
 to the front end.
 
+## Tools Configuration
+Configure the requirements list above according to your preferences and
+operating system.
+
+## Docker Configuration
+These are the settings to configure docker, independent of operating system used.
+
+| Setting        | Value   |
+|----------------|---------|
+| CPUs           | 8       |
+| Memory         | 8 GB    |
+| Sawp           | 3 GB    |
+| Disk Image     | 192 GB  |
+
+
 ## Windows
 Please read the windows [installation instructions](./Windows.md).
 
