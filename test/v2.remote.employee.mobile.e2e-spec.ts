@@ -33,9 +33,9 @@ describe('Full system issue and verify flows for employee credentials', () => {
                 try {
                     expect(res.status).toBe(200);
                     expect(res.body.access_token).toBeDefined();
-                    auth0Token = 'Bearer ' + res.body.access_token;
+                    auth0Token = `Bearer ${res.body.access_token as string}`;
                 } catch (e) {
-                    e.message = e.message + '\nDetails: ' + inspect(res.body);
+                    e.message = `${e.message as string}\nDetails: ${inspect(res.body)}`;
                     throw e;
                 }
             });
@@ -95,7 +95,8 @@ describe('Full system issue and verify flows for employee credentials', () => {
                 team: 'Engineering',
                 hireDate: '2015-01-30', // Aries suggests ISO 8601 format (yyyy-mm-dd) for dates
                 officeLocation: 'Cloud',
-                'photo~attach': '89504e470d0a1a0a0000000d49484452000000010000000108060000001f15c4890000000d4944415478da6364f8ffbf1e000584027fc25b1e2a00000000',
+                'photo~attach':
+                    '89504e470d0a1a0a0000000d49484452000000010000000108060000001f15c4890000000d4944415478da6364f8ffbf1e000584027fc25b1e2a00000000',
                 type: 'Intern',
                 endDate: '1605043300' // Unix time for predicate comparisons
             }
@@ -111,7 +112,7 @@ describe('Full system issue and verify flows for employee credentials', () => {
                     expect(res.body.credential_exchange_id).toBeDefined();
                     credentialExchangeId = res.body.credential_exchange_id;
                 } catch (e) {
-                    e.message = e.message + '\nDetails: ' + inspect(res.body);
+                    e.message = `${e.message as string}\nDetails: ${inspect(res.body)}`;
                     throw e;
                 }
             });
@@ -124,7 +125,7 @@ describe('Full system issue and verify flows for employee credentials', () => {
             connectionId: kivaConnectionId,
         };
         return request(process.env.API_GATEWAY_URL)
-            .post(`/v2/kiva/api/verify`)
+            .post('/v2/kiva/api/verify')
             .set('Authorization', auth0Token)
             .send(data)
             .expect((res) => {
@@ -134,7 +135,7 @@ describe('Full system issue and verify flows for employee credentials', () => {
                     expect(res.body.presentation_exchange_id).toBeDefined();
                     presExId = res.body.presentation_exchange_id;
                 } catch (e) {
-                    e.message = e.message + '\nDetails: ' + inspect(res.body);
+                    e.message = `${e.message as string}\nDetails: ${inspect(res.body)}`;
                     throw e;
                 }
             });
@@ -163,14 +164,14 @@ describe('Full system issue and verify flows for employee credentials', () => {
             publish: true,
         };
         return request(process.env.API_GATEWAY_URL)
-            .post(`/v2/kiva/api/revoke`)
+            .post('/v2/kiva/api/revoke')
             .set('Authorization', auth0Token)
             .send(data)
             .expect((res) => {
                 try {
                     expect(res.status).toBe(201);
                 } catch (e) {
-                    e.message = e.message + '\nDetails: ' + inspect(res.body);
+                    e.message = `${e.message as string}\nDetails: ${inspect(res.body)}`;
                     throw e;
                 }
             });
@@ -183,7 +184,7 @@ describe('Full system issue and verify flows for employee credentials', () => {
             connectionId: kivaConnectionId,
         };
         return request(process.env.API_GATEWAY_URL)
-            .post(`/v2/kiva/api/verify`)
+            .post('/v2/kiva/api/verify')
             .set('Authorization', auth0Token)
             .send(data)
             .expect((res) => {
@@ -193,7 +194,7 @@ describe('Full system issue and verify flows for employee credentials', () => {
                     expect(res.body.presentation_exchange_id).toBeDefined();
                     presExId = res.body.presentation_exchange_id;
                 } catch (e) {
-                    e.message = e.message + '\nDetails: ' + inspect(res.body);
+                    e.message = `${e.message as string}\nDetails: ${inspect(res.body)}`;
                     throw e;
                 }
             });

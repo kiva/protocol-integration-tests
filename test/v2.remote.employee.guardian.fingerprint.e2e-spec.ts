@@ -60,9 +60,9 @@ describe('Full system issue and verify flows for employee credentials', () => {
         try {
           expect(res.status).toBe(200);
           expect(res.body.access_token).toBeDefined();
-          auth0Token = 'Bearer ' + res.body.access_token;
+          auth0Token = `Bearer ${res.body.access_token as string}`;
         } catch (e) {
-          e.message = e.message + '\nDetails: ' + inspect(res.body);
+          e.message = `${e.message as string}\nDetails: ${inspect(res.body)}`;
           throw e;
         }
       });
@@ -98,7 +98,7 @@ describe('Full system issue and verify flows for employee credentials', () => {
           expect(res.body.id).toBeDefined();
           expect(res.body.connectionData).toBeDefined();
         } catch (e) {
-          e.message = e.message + '\nDetails: ' + inspect(res.body);
+          e.message = `${e.message as string}\nDetails: ${inspect(res.body)}`;
           throw e;
         }
       });
@@ -107,7 +107,7 @@ describe('Full system issue and verify flows for employee credentials', () => {
   it('Error case: ProofFailedUnfulfilled (no credential issued yet)', async () => {
     await delayFunc(1000);
     return request(process.env.API_GATEWAY_URL)
-      .post(`/v2/kiva/api/guardian/verify`)
+      .post('/v2/kiva/api/guardian/verify')
       .set('Authorization', auth0Token)
       .send(verifyData)
       .expect((res) => {
@@ -115,7 +115,7 @@ describe('Full system issue and verify flows for employee credentials', () => {
           expect(res.status).toBe(400);
           expect(res.body.code).toBe(ProtocolErrorCode.PROOF_FAILED_UNFULFILLED);
         } catch (e) {
-          e.message = e.message + '\nDetails: ' + inspect(res.body);
+          e.message = `${e.message as string}\nDetails: ${inspect(res.body)}`;
           throw e;
         }
       });
@@ -145,7 +145,8 @@ describe('Full system issue and verify flows for employee credentials', () => {
         team: 'Engineering',
         hireDate: '1420070400', // 1/1/2015
         officeLocation: 'Cloud',
-        'photo~attach': '89504e470d0a1a0a0000000d49484452000000010000000108060000001f15c4890000000d4944415478da6364f8ffbf1e000584027fc25b1e2a00000000',
+        'photo~attach':
+            '89504e470d0a1a0a0000000d49484452000000010000000108060000001f15c4890000000d4944415478da6364f8ffbf1e000584027fc25b1e2a00000000',
         type: 'Staff',
         endDate: '',
         phoneNumber: '+16282185460'
@@ -162,7 +163,7 @@ describe('Full system issue and verify flows for employee credentials', () => {
           expect(res.body.agentData.credential_exchange_id).toBeDefined();
           credExId = res.body.agentData.credential_exchange_id;
         } catch (e) {
-          e.message = e.message + '\nDetails: ' + inspect(res.body);
+          e.message = `${e.message as string}\nDetails: ${inspect(res.body)}`;
           throw e;
         }
       });
@@ -171,7 +172,7 @@ describe('Full system issue and verify flows for employee credentials', () => {
   it('Verify employee in guardianship', async () => {
     await delayFunc(1000);
     return request(process.env.API_GATEWAY_URL)
-      .post(`/v2/kiva/api/guardian/verify`)
+      .post('/v2/kiva/api/guardian/verify')
       .set('Authorization', auth0Token)
       .send(verifyData)
       .expect((res) => {
@@ -179,7 +180,7 @@ describe('Full system issue and verify flows for employee credentials', () => {
           expect(res.status).toBe(201);
           expect(res.body.companyEmail).toBe(email);
         } catch (e) {
-          e.message = e.message + '\nDetails: ' + inspect(res.body);
+          e.message = `${e.message as string}\nDetails: ${inspect(res.body)}`;
           throw e;
         }
       });
@@ -192,14 +193,14 @@ describe('Full system issue and verify flows for employee credentials', () => {
       publish: true
     };
     return request(process.env.API_GATEWAY_URL)
-      .post(`/v2/kiva/api/revoke`)
+      .post('/v2/kiva/api/revoke')
       .set('Authorization', auth0Token)
       .send(data)
       .expect((res) => {
         try {
           expect(res.status).toBe(201);
         } catch (e) {
-          e.message = e.message + '\nDetails: ' + inspect(res.body);
+          e.message = `${e.message as string}\nDetails: ${inspect(res.body)}`;
           throw e;
         }
       });
@@ -208,7 +209,7 @@ describe('Full system issue and verify flows for employee credentials', () => {
   it('Error case: ProofFailedVerification', async () => {
     await delayFunc(1000);
     return request(process.env.API_GATEWAY_URL)
-      .post(`/v2/kiva/api/guardian/verify`)
+      .post('/v2/kiva/api/guardian/verify')
       .set('Authorization', auth0Token)
       .send(verifyData)
       .expect((res) => {
@@ -216,11 +217,12 @@ describe('Full system issue and verify flows for employee credentials', () => {
           expect(res.status).toBe(400);
           expect(res.body.code).toBe(ProtocolErrorCode.PROOF_FAILED_VERIFICATION);
         } catch (e) {
-          e.message = e.message + '\nDetails: ' + inspect(res.body);
+          e.message = `${e.message as string}\nDetails: ${inspect(res.body)}`;
           throw e;
         }
       });
   });
 
-  // TODO ProofFailedNoResponse: There's not a great way to test this error case, it's more of a catch all for when there's an issue with the holder's agent
+  // TODO ProofFailedNoResponse: There's not a great way to test this error case,
+  // it's more of a catch all for when there's an issue with the holder's agent
 });
