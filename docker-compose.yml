@@ -18,7 +18,6 @@ services:
       dockerfile: indy-pool-kiva.dockerfile
       args:
         pool_ip: '10.0.0.2'
-    image: protocol-indy-pool
     container_name: protocol-indy-pool
     working_dir: /home/indy
     ports:
@@ -263,7 +262,6 @@ services:
     build:
       context: services/ssirius
       dockerfile: ssirius.dockerfile
-    image: ssirius
     container_name: ssirius
     networks:
       - agency-network
@@ -276,12 +274,11 @@ services:
     profiles:
       - frontend
 
-  fingerprintApi:
+  fingerprint_api:
     build:
-      context: services/fingerprint-simulator
-      dockerfile: simulator.dockerfile
-    image: fingerprintApi
-    container_name: fingerprintApi
+      context: .
+      dockerfile: services/fingerprint-simulator/simulator.dockerfile
+    container_name: fingerprint_api
     networks:
       - agency-network
     ports:
