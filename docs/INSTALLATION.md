@@ -68,6 +68,7 @@ you started.  Keep in mind several of components are broken out into other repos
 changes to those components will require additional setup.  Please see below.
 
 ## Front End system
+The front end code base starts here:  [ssi-wixard](https://github.com/kiva/ssi-wizard-sdk/).
 
 ## Services
 The best place to start is with the [protocol-aries code base](https://github.com/kiva/protocol-aries).
