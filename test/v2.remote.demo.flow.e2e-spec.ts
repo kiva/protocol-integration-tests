@@ -17,7 +17,6 @@ jest.setTimeout(60000);
 describe('Full system eKYC integration tests for demo issue and verify flows', () => {
     let invitation: any;
     let demoConnectionId: string;
-    let credentialExchangeId: string;
     let auth0Token: string;
     let presExId: string;
 
@@ -39,9 +38,10 @@ describe('Full system eKYC integration tests for demo issue and verify flows', (
                 try {
                     expect(res.status).toBe(200);
                     expect(res.body.access_token).toBeDefined();
-                    auth0Token = 'Bearer ' + res.body.access_token;
+                    // auth0Token = 'Bearer ' + res.body.access_token;
+                    auth0Token = `Bearer ${res.body.access_token as string}`;
                 } catch (e) {
-                    e.message = e.message + '\nDetails: ' + inspect(res.body);
+                    e.message = `${e.message as string}\nDetails: ${inspect(res.body)}`;
                     throw e;
                 }
             });
@@ -98,7 +98,8 @@ describe('Full system eKYC integration tests for demo issue and verify flows', (
                 firstName: 'First',
                 lastName: 'Last',
                 birthDate: '1975-10-10 00:00:00',
-                'photo~attach': '89504e470d0a1a0a0000000d49484452000000010000000108060000001f15c4890000000d4944415478da6364f8ffbf1e000584027fc25b1e2a00000000',
+                'photo~attach':
+                    '89504e470d0a1a0a0000000d49484452000000010000000108060000001f15c4890000000d4944415478da6364f8ffbf1e000584027fc25b1e2a00000000',
             },
             connectionId: demoConnectionId,
             profile: 'demo.cred.def.json'
@@ -113,9 +114,8 @@ describe('Full system eKYC integration tests for demo issue and verify flows', (
                     expect(res.status).toBe(201);
                     expect(res.body.state).toBe('offer_sent');
                     expect(res.body.credential_exchange_id).toBeDefined();
-                    credentialExchangeId = res.body.credential_exchange_id;
                 } catch (e) {
-                    e.message = e.message + '\nDetails: ' + inspect(res.body);
+                    e.message = `${e.message as string}\nDetails: ${inspect(res.body)}`;
                     throw e;
                 }
             });
@@ -128,7 +128,7 @@ describe('Full system eKYC integration tests for demo issue and verify flows', (
             profile: 'demo.proof.request.json',
         };
         return request(process.env.API_GATEWAY_URL)
-            .post(`/v2/demo/api/verify`)
+            .post('/v2/demo/api/verify')
             .set(AUTH0_HEADER, auth0Token)
             .set('agent', 'demo-agent')
             .send(data)
@@ -139,7 +139,7 @@ describe('Full system eKYC integration tests for demo issue and verify flows', (
                     expect(res.body.presentation_exchange_id).toBeDefined();
                     presExId = res.body.presentation_exchange_id;
                 } catch (e) {
-                    e.message = e.message + '\nDetails: ' + inspect(res.body);
+                    e.message = `${e.message as string}\nDetails: ${inspect(res.body)}`;
                     throw e;
                 }
             });

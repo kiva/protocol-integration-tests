@@ -65,6 +65,20 @@ npm run test
 The version of each service tested will be whichever version is currently tagged with `latest` in
 [dockerhub](https://hub.docker.com/orgs/kivaprotocol/repositories).
 
+### Building the Frontend
+
+The default behavior of this repo is to build only our backend stack for testing. But you can build our frontend out, too!
+
+To do so, simply add the `--profile frontend` to the `docker-compose up` command. Please note that it takes some time to build out these Docker images.
+
+```
+docker-compose --profile frontend up
+```
+
+Once the the Docker script finishes running (and it may take a while!), you can head to `http://localhost:7567` in your browser window to test out our services. (Please note that right now the only UI paths that will work are those related to fingerprint scanning. Verification and Issuing using QR codes or SMS is not currently supported.)
+
+We are currently working on writing tests against our frontend. Stay tuned!
+
 ## How to Test a Particular Change
 
 The real value of the these integration tests is that it makes testing changes across components easy.

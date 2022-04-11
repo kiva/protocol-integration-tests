@@ -6,15 +6,29 @@ Please make sure the prerequisites as mentioned in the
 # Using the runtime version
 
 ## Front End system
+> Editors note: more detailed instructions exist [here](../README.md).
 
-## Services
+The default behavior of this repo is to build only our backend stack for testing. But you can build our frontend out, too!
+
+To do so, simply add the --profile frontend to the docker-compose up command. Please note that it takes some time to build out these Docker images.
+
+```
+docker-compose --profile frontend up
+```
+
+Once the the Docker script finishes running (and it may take a while!), you can head to http://localhost:7567 in your browser window to test out our services. (Please note that right now the only UI paths that will work are those related to fingerprint scanning. Verification and Issuing using QR codes or SMS is not currently supported.)
+
+## RESTFul Services
 
 1. get the services from `https://github.com/kiva/protocol-integration-tests`
-2. Run the following command to manually pull the latest bcgov image:
+2. Run the following command to manually pull the latest bcgov image: 
 ```
 docker pull bcgovimages/aries-cloudagent:py36-1.16-1_0.7.1
 ```
-3, to start the services, 
+3. to start the services,
+```
+docker-compose -f 
+```
 
 
 # Using the code base
