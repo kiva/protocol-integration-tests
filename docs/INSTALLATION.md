@@ -33,8 +33,56 @@ These are the settings to configure docker, independent of operating system used
 | Disk Image     | 192 GB  |
 
 
-## Windows
-Please read the windows [installation instructions](./Windows.md).
+# Running the system
 
-## MacOS
-Please read the MacOS [installation instructions](./MacOS.md).
+The system is comprised of two channels:  front end, which is the UI, and the backend which is
+comprised of RESTFul services and handles all of the wallet and blockchain interactions.
+
+## Getting the Code
+To get started, pull this entire repo down locally.
+
+## Starting the complete system
+
+> Editors note: more detailed instructions exist [here](../README.md).
+
+The default behavior of this repo is to build only our backend stack for testing. But you can build our frontend out, too!
+
+To do so, simply add the --profile frontend to the docker-compose up command. Please note that it takes some time to build out these Docker images.
+
+```
+docker-compose --profile frontend up
+```
+
+Once the Docker script finishes running (and it may take a while!), you can head to http://localhost:7567 in your browser window to test out our services. (Please note that right now the only UI paths that will work are those related to fingerprint scanning. Verification and Issuing using QR codes or SMS is not currently supported.)
+
+
+## Only running backend services
+
+```
+docker-compose 
+```
+
+# Using the code base
+The code base is broken up into more granular components.  These instructions will get
+you started.  Keep in mind several of components are broken out into other repos so making
+changes to those components will require additional setup.  Please see below.
+
+## Front End system
+
+## Services
+The best place to start is with the [protocol-aries code base](https://github.com/kiva/protocol-aries).
+
+1. follow protocol-aries [setup instructions](https://github.com/kiva/protocol-aries#setup) for setup.
+2. and for running the services.
+
+### Additional components for the services
+[aries-guardianship-agency](https://github.com/kiva/aries-guardianship-agency)    
+[aries-key-guardian](https://github.com/kiva/aries-key-guardian.git)    
+[protocol-common](https://github.com/kiva/protocol-common.git)    
+[protocol](https://github.com/kiva/protocol.git)  
+
+
+
+
+
+
