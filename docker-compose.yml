@@ -268,12 +268,12 @@ services:
       - agency-network
     ports:
       - "7567:7567"
-    expose:
-      - "7567"
-    depends_on:
-      - fingerprintApi
     profiles:
       - frontend
+    depends_on:
+      - protocol-indy-pool
+      - fingerprint_api
+    tty: true
 
   fingerprint_api:
     build:
@@ -282,9 +282,10 @@ services:
     container_name: fingerprint_api
     networks:
       - agency-network
+    depends_on:
+      - protocol-indy-pool
     ports:
       - "9907:9907"
-    expose:
-      - "9907"
     profiles:
       - frontend
+    tty: true

@@ -57,7 +57,7 @@ You also need an Auth0 account of your own.
 Running the tests is super simple! Just bring up the docker-compose, set up your test fixtures, and run the tests. Like this:
 
 ```
-docker-compose up
+docker-compose up -d
 ./scripts/setup_fixtures.sh
 npm run test
 ```
@@ -69,10 +69,12 @@ The version of each service tested will be whichever version is currently tagged
 
 The default behavior of this repo is to build only our backend stack for testing. But you can build our frontend out, too!
 
-To do so, simply add the `--profile frontend` to the `docker-compose up` command. Please note that it takes some time to build out these Docker images.
+To do so, simply add the `--profile frontend` to the `docker-compose up` command in the steps above. Please note that it takes some time to build out these Docker images.
 
 ```
-docker-compose --profile frontend up
+docker-compose --profile frontend up -d
+./scripts/setup_fixtures.sh
+npm run test
 ```
 
 Once the the Docker script finishes running (and it may take a while!), you can head to `http://localhost:7567` in your browser window to test out our services. (Please note that right now the only UI paths that will work are those related to fingerprint scanning. Verification and Issuing using QR codes or SMS is not currently supported.)
