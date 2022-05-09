@@ -1,7 +1,8 @@
 import request from 'supertest';
+import { jest } from '@jest/globals';
 import { inspect } from 'util';
 import { readFileSync } from 'fs';
-import { ProtocolErrorCode } from 'protocol-common/protocol.errorcode';
+import { ProtocolErrorCode } from 'protocol-common';
 import { delayFunc } from './util/time.util';
 
 jest.setTimeout(60000);

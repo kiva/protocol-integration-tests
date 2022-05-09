@@ -1,4 +1,5 @@
 import request from 'supertest';
+import { jest } from '@jest/globals';
 import { inspect } from 'util';
 import { delayFunc } from './util/time.util';
 
@@ -38,7 +39,6 @@ describe('Full system eKYC integration tests for demo issue and verify flows', (
                 try {
                     expect(res.status).toBe(200);
                     expect(res.body.access_token).toBeDefined();
-                    // auth0Token = 'Bearer ' + res.body.access_token;
                     auth0Token = `Bearer ${res.body.access_token as string}`;
                 } catch (e) {
                     e.message = `${e.message as string}\nDetails: ${inspect(res.body)}`;
