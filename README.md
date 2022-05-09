@@ -51,6 +51,10 @@ You also need an Auth0 account of your own.
    ```
 4. Make sure to update the `AUTH0_DOMAIN` in `demo_controller/test.env` and `fsp_controller/test.env`, using the same
    value you provided in the previous step.
+5. If you have not already, pull the Aries Cloudagent Python (AcaPy) image from Docker.
+    ```
+    docker pull bcgovimages/aries-cloudagent:py36-1.16-1_0.7.1
+    ```
 
 ## How to Run the Tests
 

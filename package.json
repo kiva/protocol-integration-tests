@@ -11,10 +11,10 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "node -r dotenv/config node_modules/.bin/jest --runInBand",
-    "test:concurrency": "node -r dotenv/config node_modules/.bin/jest --testRegex concurrency",
-    "test:identity": "node -r dotenv/config node_modules/.bin/jest --testRegex identity",
-    "test:remote": "node -r dotenv/config node_modules/.bin/jest --runInBand --testRegex remote",
+    "test": "DOTENV_CONFIG_OVERRIDE=true node -r dotenv/config node_modules/.bin/jest --runInBand",
+    "test:concurrency": "DOTENV_CONFIG_OVERRIDE=true node -r dotenv/config node_modules/.bin/jest --testRegex concurrency",
+    "test:identity": "DOTENV_CONFIG_OVERRIDE=true node -r dotenv/config node_modules/.bin/jest --testRegex identity",
+    "test:remote": "DOTENV_CONFIG_OVERRIDE=true node -r dotenv/config node_modules/.bin/jest --runInBand --testRegex remote",
     "fingerprintApi": "swrl"
   },
   "dependencies": {
@@ -27,7 +27,7 @@
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
     "@typescript-eslint/parser": "^5.17.0",
-    "dotenv": "^10.0.0",
+    "dotenv": "^16.0.0",
     "eslint": "^8.12.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jsdoc": "^38.1.4",
