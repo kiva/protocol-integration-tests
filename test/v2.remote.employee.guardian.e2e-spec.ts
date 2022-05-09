@@ -1,4 +1,5 @@
 import request from 'supertest';
+import { jest } from '@jest/globals';
 import { inspect } from 'util';
 import { delayFunc } from './util/time.util';
 
