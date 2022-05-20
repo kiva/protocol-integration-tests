@@ -4,6 +4,7 @@ import { inspect } from 'util';
 import { readFileSync } from 'fs';
 import { ProtocolErrorCode } from 'protocol-common';
 import { delayFunc } from './util/time.util';
+import getAuth0Token from './util/auth0.token.util';
 
 jest.setTimeout(60000);
 
@@ -46,17 +47,8 @@ describe('Full system issue and verify flows for employee credentials', () => {
   });
 
   it('Get Auth0 access token', () => {
-    const auth0Data = {
-      client_id: process.env.AUTH0_CLIENT_ID,
-      client_secret: process.env.AUTH0_CLIENT_SECRET,
-      audience: `https://${process.env.AUTH0_DOMAIN}/api/v2/`,
-      grant_type: 'client_credentials',
-    };
 
-    return request(`https://${process.env.AUTH0_DOMAIN}`)
-      .post('/oauth/token')
-      .set('content-type', 'application/json')
-      .send(auth0Data)
+    return getAuth0Token()
       .expect((res) => {
         try {
           expect(res.status).toBe(200);

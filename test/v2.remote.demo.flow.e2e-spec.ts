@@ -2,6 +2,7 @@ import request from 'supertest';
 import { jest } from '@jest/globals';
 import { inspect } from 'util';
 import { delayFunc } from './util/time.util';
+import getAuth0Token from './util/auth0.token.util';
 
 jest.setTimeout(60000);
 
@@ -24,17 +25,8 @@ describe('Full system eKYC integration tests for demo issue and verify flows', (
     const AUTH0_HEADER = 'Authorization';
 
     it('Get Auth0 access token', () => {
-        const auth0Data = {
-            client_id: process.env.AUTH0_CLIENT_ID,
-            client_secret: process.env.AUTH0_CLIENT_SECRET,
-            audience: `https://${process.env.AUTH0_DOMAIN}/api/v2/`,
-            grant_type: 'client_credentials',
-        };
 
-        return request(`https://${process.env.AUTH0_DOMAIN}`)
-            .post('/oauth/token')
-            .set('content-type', 'application/json')
-            .send(auth0Data)
+        return getAuth0Token()
             .expect((res) => {
                 try {
                     expect(res.status).toBe(200);
