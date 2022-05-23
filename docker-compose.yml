@@ -36,6 +36,8 @@ services:
 
   protocol-gateway:
     image: "${PROTOCOL_GATEWAY_IMAGE}"
+    environment:
+      - AUTH0_ENABLED=${AUTH0_ENABLED:-false}
     env_file:
       - services/gateway/test.env
     container_name: protocol-gateway
