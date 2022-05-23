@@ -33,25 +33,19 @@ You need to have the following installed locally:
 - NPM
 - NodeJS
 
-You also need an Auth0 account of your own.
-
 ## Setup
 
-1. Copy the contents of `dummy.env` into `.env`.
-2. Install the integration tests' dependencies by running `npm install`
-3. Using the values from your Auth0 account, add values for the following environment variables to `.env`:
-   ```
-   AUTH0_DOMAIN=<auth0 domain>
-   AUTH0_CLIENT_ID=<auth0 client ID>
-   AUTH0_CLIENT_SECRET=<auth0 client secret>
-   AUTH0_EXPIRED_TOKEN=<valid, but expired auth0 token>
-   AUTH0_USER_CLIENT_ID=<auth0 user client ID>
-   AUTH0_USERNAME=<auth0 username>
-   AUTH0_PASSWORD=<auth0 password>
-   ```
-4. Make sure to update the `AUTH0_DOMAIN` in `demo_controller/test.env` and `fsp_controller/test.env`, using the same
-   value you provided in the previous step.
-5. If you have not already, pull the Aries Cloudagent Python (AcaPy) image from Docker.
+1. Clone the repo
+    ```
+    git clone https://github.com/kiva/protocol-integration-tests
+    cd protocol-integration-tests
+    ```
+2. Copy the contents of `dummy.env` into `.env`. You can do this manually, or via a script:
+    ```
+    ./scripts/setup_env.sh
+    ```
+3. Install the integration tests' dependencies by running `npm install`
+4. If you have not already, pull the Aries Cloudagent Python (AcaPy) image from Docker.
     ```
     docker pull bcgovimages/aries-cloudagent:py36-1.16-1_0.7.1
     ```
@@ -106,3 +100,24 @@ Bioanalyzer Service, and Aries Key Guardian and test them all together at the sa
 
 You can also test changes to infrastructure in a similar way. Instead of updating `.env`, though, you'd directly update
 the image for the relevant container in `docker-compose.yml`.
+
+## Using Auth0
+
+These tests were initially meant to be run using an authentication token from [Auth0](https://auth0.com/), because the Protocol project was originally built using Auth0 as the permissioning system for network requests.
+
+We have disabled the use of bearer tokens in this repo by default, but if you have an Auth0 account, you can enable authentication headers with the following steps:
+
+1. Using the values from your Auth0 account, add values for the following environment variables to `.env`:
+   ```
+   AUTH0_DOMAIN=<auth0 domain>
+   AUTH0_CLIENT_ID=<auth0 client ID>
+   AUTH0_CLIENT_SECRET=<auth0 client secret>
+   AUTH0_EXPIRED_TOKEN=<valid, but expired auth0 token>
+   AUTH0_USER_CLIENT_ID=<auth0 user client ID>
+   AUTH0_USERNAME=<auth0 username>
+   AUTH0_PASSWORD=<auth0 password>
+   ```
+2. Make sure to update the `AUTH0_DOMAIN` in `demo_controller/test.env` and `fsp_controller/test.env`, using the same
+   value you provided in the previous step.
+
+_*PLEASE NOTE*_: If you have already built the Docker containers without your Auth0 account info provided as environment variables, you'll have to rebuild the images.
