@@ -87,7 +87,7 @@ cd "$repository" || exit 1
 # Build images using provided (or default) docker-compose file name
 sh "$setup_env_script"
 docker-compose -f "$filename" build
-cd ..
+cd ../../
 rm -rf tmp
 
 
