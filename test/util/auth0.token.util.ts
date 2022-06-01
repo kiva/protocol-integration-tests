@@ -1,15 +1,11 @@
 import request from 'supertest';
-import mock from 'superagent-mocker';
+import nock from 'nock';
 
 const sendMockedPost = (): request.Test => {
-    mock.post('/oauth/token'), () => {
-        return {
-            status: 200,
-            body: {
-                access_token: 'mockTestToken'
-            }
-        };
-    };
+    const baseUrl = 'https://fakeAuthUrl.com';
+    nock(baseUrl)
+      .post('/oauth/token')
+      .reply(200, { access_token: 'mockTestToken' });
 
     return request('https://fakeAuthUrl.com')
         .post('/oauth/token')
