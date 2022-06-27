@@ -12,8 +12,8 @@ The services tested are:
 - [Bio Auth Service](https://github.com/kiva/guardian-bio-auth/tree/main/bio_auth_service)
 - [Bioanalyzer Service](https://github.com/kiva/guardian-bio-auth/tree/main/bioanalyzer_service)
 - [Demo Controller](https://github.com/kiva/protocol-demo)
-- FSP Controller (Note: The code for this service is in a private repository. We'll make it public soon!)
-- Kiva Controller (Note: The code for this service is in a private repository. We'll make it public soon!)
+- [FSP Controller](https://github.com/kiva/protocol-aries-controllers)
+- [Kiva Controller](https://github.com/kiva/protocol-aries-controllers)
 
 The infrastructure tested is:
 - Multitenant (Used by Aries Guardianship Agency)
