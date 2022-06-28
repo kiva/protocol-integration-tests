@@ -77,7 +77,16 @@ npm run test
 
 Once the the Docker script finishes running (and it may take a while!), you can head to `http://localhost:7567` in your browser window to test out our services. (Please note that right now the only UI paths that will work are those related to fingerprint scanning. Verification and Issuing using QR codes or SMS is not currently supported.)
 
-We are currently working on writing tests against our frontend. Stay tuned!
+### Testing the Frontend with Fingerprints
+
+Once you've built the frontend using Docker, you can create a new credential and verify it using the browser. Here are the steps you should follow.
+
+1. Navigate to `http://localhost:7567`
+2. Click "Accept", then click "Fingerprint Registration" and then "Select"
+3. Upload a photo for your credential, or use the webcam UI in order to take a picture of yourself. Silly pictures only, please. Once you've finished, click "Continue."
+4. Input your information into the next page. If you're not a Kiva employee, these fields will not make much sense to you - feel free to get creative, or just use the "Populate Form" button to add fake data. Click "Continue" when you're done.
+5. Click at least one of the boxes to upload a fingerprint image for your credential. The `docker-compose` script automatically creates an API that delivers fake fingerprint images when called, so don't worry about using your own fingerprint if you don't want to.
+    * Please note: We don't recommend uploading a fingerprint for each finger due to an issue with one of our services.
 
 ## How to Test a Particular Change
 

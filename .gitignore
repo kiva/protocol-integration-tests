@@ -4,3 +4,7 @@ node_modules
 dist
 .env
 *.log
+/test-results/
+/playwright-report/
+/playwright/.cache/
+playwright-tests
