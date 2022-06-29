@@ -77,7 +77,28 @@ npm run test
 
 Once the the Docker script finishes running (and it may take a while!), you can head to `http://localhost:7567` in your browser window to test out our services. (Please note that right now the only UI paths that will work are those related to fingerprint scanning. Verification and Issuing using QR codes or SMS is not currently supported.)
 
-We are currently working on writing tests against our frontend. Stay tuned!
+### Testing the Frontend with Fingerprints
+
+Once you've built the frontend using Docker, you can create a new credential and verify it using the browser. Here are the steps you should follow.
+
+1. Navigate to `http://localhost:7567`
+2. Click "Accept", then click "Fingerprint Registration" and then "Select"
+3. Upload a photo for your credential, or use the webcam UI in order to take a picture of yourself. Silly pictures only, please. Once you've finished, click "Continue."
+4. Input your information into the next page. If you're not a Kiva employee, these fields will not make much sense to you - feel free to get creative, or just use the "Populate Form" button to add fake data. Click "Continue" when you're done.
+    * Note: Copy the value of the email you used for this step. It will be needed later.
+5. Click at least one of the boxes to upload a fingerprint image for your credential. The `docker-compose` script automatically creates an API that delivers fake fingerprint images when called, so don't worry about using your own fingerprint if you don't want to.
+    * Please note: We don't recommend uploading a fingerprint for each finger due [to an issue with one of our services](https://github.com/kiva/guardian-bio-auth/issues/50). Pick your three favorites.
+6. Click "Next" and wait for the success message. This may take a minute.
+7. Click "Start New EKYC" in the top right corner. Click "Accept", then click "Fingerprint Scan" followed by "Select."
+8. Enter the email that you used in step 4, then click "Next".
+9. If you added an image for the Right Thumb box in step 5, you can just click "Next". If you didn't, click "Use a different finger", select the finger that you used for creating your credential, then click the button below the fingerprint selection UI before clicking "Next".
+10. Once the request finishes, you should be able to see your credential data.
+
+If you'd rather have a machine do these steps automatically, you can do that easily by running the following command.
+
+```
+npm run test:browser
+```
 
 ## How to Test a Particular Change
 

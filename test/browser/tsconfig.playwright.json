@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "Node",
+        "sourceMap": true,
+        "outDir": "../../playwright-tests",
+    },
+    "include": [
+        "./**.ts"
+    ]
+}
